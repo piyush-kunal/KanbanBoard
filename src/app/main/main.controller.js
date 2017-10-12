@@ -2,6 +2,12 @@ export class MainController {
   constructor($scope) {
     'ngInject';
 
+    $scope.priorities = [
+      {type:'High'},
+      {type:'Medium'},
+      {type:'Low'}
+    ];
+
     $scope.$on('bag.drop', function(e, el, target){
       console.log(`Dropped ${el[0].id} on target ${target[0].id}`);
     });

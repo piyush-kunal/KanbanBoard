@@ -24,21 +24,46 @@
 
     <div class="container" ng-controller="MainController as main">
       <h1 class="text-center">{{main.board.title}}</h1>
-      <div class="row">
-        <div class="col-sm-12 col-md-3">
-          <input type="text" name="new-todo" value="" placeholder="Add ToDo" ng-model="main.newTodo.title">
-          <input type="submit" name="submit" value="Submit" ng-click="main.submit()">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Enter To Do</th>
+            <th>Due Date</th>
+            <th>Priority</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input class="form-control" name="new-todo" placeholder="Add ToDo" ng-model="main.newTodo.title"></td>
+            <td><input type="date" class="form-control" ng-model="main.newTodo.date"></td>
+            <td>
+              <select class="form-control" ng-model="main.newTodo.priority" ng-options="priority as priority.type for priority in priorities">
+                <option value="">-- choose priority --</option>
+            </td>
+            <td><input class="form-control" type="submit" name="submit" value="Submit" ng-click="main.submit()"></td>
+            <!-- <td><button class="btn btn-primary" ng-click="addContact()">Add Contact</button></td> -->
+          </tr>
+        </tbody>
+      </table>
+      <!-- <div class="row">
+        <div class="col-sm-12">
+          <form class="" method="post">
+            <input type="text" name="new-todo" value="" placeholder="Add ToDo" ng-model="main.newTodo.title">
+            <input type="submit" name="submit" value="Submit" ng-click="main.submit()">
+          </form>
         </div>
-      </div>
+      </div> -->
 
       <div class="row">
         <div class="col-sm-12 col-md-3" ng-repeat="list in main.board.lists">
           <h2 class="text-center">{{list.name}}</h2>
           <div id="list-{{list.id}}" dragula='"bag"' ng-repeat="card in list.cards" dragula-scope="$parent.$parent" style="min-height: 10px;">
-            <div id="card-{{card.id}}" class="thumbnail" style="background-color : blue">
+            <div id="card-{{card.id}}" class="thumbnail">
               <div class="caption">
                 <h3>{{ card.title }}</h3>
-                <h4>{{"Priority : "}}{{ card.priority}}</h4>
+                <h4>{{"Due Date : "}}{{ card.date | date:'medium' }}</h4>
+                <h4>{{"Priority : "}}{{ card.priority.type}}</h4>
               </div>
             </div>
           </div>
